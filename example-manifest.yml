@@ -1,0 +1,71 @@
+---
+name: clamav
+director_uuid: 4d574749-0e54-473e-8073-50934bfea6c2
+
+releases:
+- name: emc-clamav
+  version: latest
+
+compilation:
+  workers: 1
+  cloud_properties:
+    cpu: 1
+    disk: 18192
+    ram: 4096
+  network: default
+  reuse_compilation_vms: true
+
+networks:
+  - name: default
+    subnets:
+    - reserved:
+      - 10.8.0.2 - 10.8.9.73
+      - 10.8.9.80 - 10.8.9.119
+      - 10.8.9.121 - 10.8.15.254
+      static:
+      - 10.8.9.120
+      range: 10.8.0.0/20
+      gateway: 10.8.0.1
+      dns:
+      - 10.8.0.13
+      - 10.8.0.14
+      cloud_properties:
+       name : Lab Network
+
+update:
+  canary_watch_time: 30000 - 600000
+  update_watch_time: 30000 - 60000
+  max_in_flight: 1
+  max_errors: 1
+  canaries: 1
+
+resource_pools:
+- name: medium
+  network: default
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: 2732
+  cloud_properties:
+    cpu: 2
+    ram: 2048
+    disk: 18192
+    persistent_disk: 20000
+
+jobs:
+- name: clamav
+  templates:
+  - name: clamav
+    release: emc-clamav
+  instances: 1
+  resource_pool: medium
+  networks:
+  - name: default
+    static_ips:
+    - 10.8.9.120
+
+properties:
+  clamav:
+    dbMirror1: db.local.clamav.net
+    dbMirror2: database.clamav.net
+    useProxy: false
+

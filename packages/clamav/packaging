@@ -1,0 +1,19 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+mkdir -p /var/vcap/packages/clamav
+# Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+export CLAMAV_HOME=/var/vcap/packages/clamav
+export COMPILE_HOME=`pwd`
+
+tar xvzf clamav/virus_defs.tar -C $CLAMAV_HOME
+
+tar xvzf clamav/clamav-0.98.6.tar.gz
+cd clamav-0.98.6
+./configure --prefix=$CLAMAV_HOME --disable-clamav
+make
+make install
+
+cd $COMPILE_HOME

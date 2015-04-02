@@ -1,0 +1,12 @@
+check process clamd
+  with pidfile /var/vcap/sys/run/clamav/clamd.pid
+  start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamd" with timeout 500 seconds
+  stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_clamd"
+  group vcap
+
+check process freshclam
+  with pidfile /var/vcap/sys/run/clamav/freshclam.pid
+  start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_freshclam" with timeout 500 seconds
+  stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_freshclam"
+  depends on clamd
+  group vcap
