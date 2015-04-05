@@ -10,8 +10,8 @@ To use this BOSH release, first create the dev release, then the final release, 
 
 ```
 bosh target BOSH_HOST
-git clone https://github.com/emc-cloudfoundry/ecd-bosh-releases.git
-cd ecd-bosh-releases/clamav
+git clone https://github.com/emc-cloudfoundry/clamav-boshrelease.git
+cd clamav-boshrelease
 bosh create release --force
 bosh create release --force --final
 bosh upload release
