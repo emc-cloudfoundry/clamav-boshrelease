@@ -4,8 +4,10 @@ packages:
 - clamav
 templates:
  bin/clamav_ctl.sh : bin/clamav_ctl.sh
+ bin/clamav_scan.sh : bin/clamav_scan.sh
  conf/freshclam.conf.erb : conf/freshclam.conf
  conf/clamd.conf.erb : conf/clamd.conf
+ conf/clamav_dailyscan.cron.erb : conf/clamav_dailyscan.cron
 
 properties:
   clamav.useProxy:
