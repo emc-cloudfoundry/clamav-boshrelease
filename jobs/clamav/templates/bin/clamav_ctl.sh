@@ -34,6 +34,7 @@ fi
 case "$1" in
 	'start_clamd')
 	  $PKG_LOC/sbin/clamd -c $PKG_LOC/etc/clamd.conf
+	  (crontab -l | sed /clamav.*logrotate/d; cat /var/vcap/jobs/clamav/conf/clamav_logrotate.cron) | sed /^$/d | crontab
 	  sleep 1
 	;;
 	'start_freshclam')
