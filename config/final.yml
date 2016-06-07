@@ -1,5 +1,5 @@
 ---
-final_name: emc-clamav
+final_name: clamav
 blobstore:
   provider: local
   options:
