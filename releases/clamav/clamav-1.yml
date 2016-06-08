@@ -1,0 +1,20 @@
+---
+packages:
+- name: clamav
+  version: f713bfd84ee50fde128618f2867730bb6a5eb04a
+  fingerprint: f713bfd84ee50fde128618f2867730bb6a5eb04a
+  sha1: 2fb46dab1e9789c88342c3abba471b3b70dc1fc5
+  dependencies: []
+jobs:
+- name: clamav
+  version: 88f5339dd6750ba28821a7262ba65a7c78523f1b
+  fingerprint: 88f5339dd6750ba28821a7262ba65a7c78523f1b
+  sha1: 02ef9c30cd9d467ac5e87c633b83dbba02f9d8b3
+license:
+  version: d24857565d0094c712f6da2ae0875ec44c52bb3f
+  fingerprint: d24857565d0094c712f6da2ae0875ec44c52bb3f
+  sha1: 4762c92bfd23dbc7496f6f561350025b2994c6a9
+commit_hash: ee149d07
+uncommitted_changes: true
+name: clamav
+version: '1'
