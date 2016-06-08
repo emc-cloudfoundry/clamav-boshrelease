@@ -29,7 +29,9 @@ EOF
 # do the sync
 $CLAMAV_HOME/bin/freshclam -u root --config-file $TMPCONF
 
+# set the monit flag
+touch $CLAMAV_HOME/database/defs_are_current
+
 rm $TMPCONF
 
 cd $COMPILE_HOME
-
