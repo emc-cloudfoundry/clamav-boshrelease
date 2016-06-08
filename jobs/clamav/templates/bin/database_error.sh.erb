@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# TO DO: Notify Riemann
+/var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "Error updating virus definitions"
 
 rm /var/vcap/packages/clamav/database/defs_are_current
