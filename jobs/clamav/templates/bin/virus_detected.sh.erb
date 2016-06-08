@@ -1,5 +1,3 @@
 #!/bin/sh
 
-# TODO: Notify Riemann
-
-exit 0;
+/var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "$CLAM_VIRUSEVENT_FILENAME has a virus called $CLAM_VIRUSEVENT_VIRUSNAME"
