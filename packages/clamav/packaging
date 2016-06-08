@@ -8,12 +8,30 @@ export HOME=/var/vcap
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export COMPILE_HOME=`pwd`
 
-tar xvzf clamav/virus_defs.tar -C $CLAMAV_HOME
-
-tar xvzf clamav/clamav-0.98.6.tar.gz
-cd clamav-0.98.6
+tar xvzf clamav/clamav*.tar.gz
+cd clamav-*
 ./configure --prefix=$CLAMAV_HOME --disable-clamav
 make
 make install
+
+# do an initial sync of the virus definition at compile time
+mkdir -p $CLAMAV_HOME/database
+
+TMPCONF=$(mktemp)
+
+# minimum configuration required to do a db sync
+cat << EOF > $TMPCONF
+DatabaseDirectory $CLAMAV_HOME/database
+DatabaseMirror db.us.clamav.net
+DatabaseMirror database.clamav.net
+EOF
+
+# do the sync
+$CLAMAV_HOME/bin/freshclam -u root --config-file $TMPCONF
+
+# set the monit flag
+touch $CLAMAV_HOME/database/defs_are_current
+
+rm $TMPCONF
 
 cd $COMPILE_HOME

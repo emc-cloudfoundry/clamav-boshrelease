@@ -10,3 +10,11 @@ check process freshclam
   stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_freshclam"
   depends on clamd
   group vcap
+
+check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/defs_are_current
+  if not exist then alert
+  depends on freshclam
+
+check file freshclam.log with path /var/vcap/sys/log/clamav/freshclam.log
+  if timestamp > 2 hours then alert
+  depends on freshclam
