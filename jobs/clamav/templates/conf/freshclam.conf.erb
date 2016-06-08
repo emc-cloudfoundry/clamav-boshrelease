@@ -1,32 +1,31 @@
-# Automatically created by the clamav-freshclam postinst
-# Comments will get lost when you reconfigure the clamav-freshclam package
-
-DatabaseOwner root
-UpdateLogFile /var/vcap/sys/log/clamav/freshclam.log
-LogVerbose false
-LogSyslog false
-LogFacility LOG_LOCAL6
-LogFileMaxSize 0
+LogFileMaxSize 1M
 LogTime true
-Foreground false
-Debug false
-MaxAttempts 5
-DatabaseDirectory /var/lib/clamav
-#DNSDatabaseInfo current.cvd.clamav.net
-NotifyClamd /var/vcap/packages/clamav/etc/clamd.conf
-AllowSupplementaryGroups false
+LogSyslog true
+LogFacility LOG_LOCAL6
+LogVerbose false
+LogRotate true
 PidFile /var/vcap/sys/run/clamav/freshclam.pid
-ConnectTimeout 30
-ReceiveTimeout 30
-TestDatabases yes
-#ScriptedUpdates off
-CompressLocalDatabase no
-Bytecode true
-# Check for new database 24 times a day
+DatabaseDirectory /var/vcap/packages/clamav/database
+Foreground false
+AllowSupplementaryGroups false
+UpdateLogFile /var/vcap/sys/log/clamav/freshclam.log
+DatabaseOwner root
 Checks 24
+DNSDatabaseInfo current.cvd.clamav.net
 DatabaseMirror <%= properties.clamav.dbMirror1 %>
 DatabaseMirror <%= properties.clamav.dbMirror2 %>
-<% if properties.clamav.useProxy %>
-HTTPProxyServer <%= properties.clamav.proxyHost %>
-HTTPProxyPort <%= properties.clamav.proxyPort %>
-<% end %>
+MaxAttempts 3
+ScriptedUpdates true
+TestDatabases true
+CompressLocalDatabase false
+NotifyClamd /var/vcap/jobs/clamav/conf/clamd.conf
+OnUpdateExecute /var/vcap/jobs/clamav/bin/database_updated.sh
+OnErrorExecute /var/vcap/jobs/clamav/bin/database_error.sh
+OnOutdatedExecute /var/vcap/jobs/clamav/bin/database_outdated.sh
+ConnectTimeout 10
+ReceiveTimeout 30
+SubmitDetectionStats false
+DetectionStatsCountry false
+DetectionStatsHostID false
+SafeBrowsing false
+Bytecode true
