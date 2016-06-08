@@ -14,19 +14,22 @@ cd clamav-*
 make
 make install
 
-
 # do an initial sync of the virus definition at compile time
 mkdir -p $CLAMAV_HOME/database
 
+TMPCONF=$(mktemp)
+
 # minimum configuration required to do a db sync
-cat << EOF > $CLAMAV_HOME/etc/freshclam.conf
+cat << EOF > $TMPCONF
 DatabaseDirectory $CLAMAV_HOME/database
 DatabaseMirror db.us.clamav.net
 DatabaseMirror database.clamav.net
 EOF
 
 # do the sync
-$CLAMAV_HOME/bin/freshclam -u root
+$CLAMAV_HOME/bin/freshclam -u root --config-file $TMPCONF
+
+rm $TMPCONF
 
 cd $COMPILE_HOME
 

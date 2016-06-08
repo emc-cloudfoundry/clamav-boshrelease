@@ -8,16 +8,9 @@ templates:
  conf/clamd.conf.erb : conf/clamd.conf
 
 properties:
-  clamav.useProxy:
-    description: "Define whether to use a proxy or not"
-    default: false
-  clamav.proxyHost:
-    description: "The host name or IP for the proxy"
-  clamav.proxyPort:
-    description: "The port number for the proxy"
   clamav.dbMirror1:
     description: "Primary virus definition update host"
-    default: db.local.clamav.net
+    default: db.us.clamav.net
   clamav.dbMirror2:
     description: "Secondary virus definition update host"
     default: database.clamav.net
