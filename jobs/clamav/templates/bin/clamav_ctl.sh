@@ -23,9 +23,9 @@ case "$1" in
 	  $PKG_LOC/bin/freshclam -d --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
 	;;
 	'stop_clamd')
-	  kill `pidof clamd`
+	  kill -9 `pidof clamd`
 	;;
 	'stop_freshclam')
-	  kill `pidof freshclam`
+	  kill -9 `pidof freshclam`
 	;;
 esac
