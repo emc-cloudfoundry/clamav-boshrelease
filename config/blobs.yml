@@ -1,5 +1,4 @@
----
-clamav/clamav-0.99.2.tar.gz:
-  object_id: e9fbd623-210d-457a-bfc4-ab1a87acad05
-  sha: c1a47411834d8527f7b40727aebee63f01d488af
-  size: 16067497
+clamav/clamav-0.99.4.tar.gz:
+  size: 16083015
+  object_id: 662a4ebb-fb39-4fa8-46b0-5def9fa3183b
+  sha: 31f91cb63329385325821a03db46e7001dc40fa2
