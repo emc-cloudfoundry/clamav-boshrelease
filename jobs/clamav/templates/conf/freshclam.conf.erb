@@ -7,7 +7,6 @@ LogRotate true
 PidFile /var/vcap/sys/run/clamav/freshclam.pid
 DatabaseDirectory /var/vcap/packages/clamav/database
 Foreground false
-AllowSupplementaryGroups false
 UpdateLogFile /var/vcap/sys/log/clamav/freshclam.log
 DatabaseOwner root
 Checks 24
@@ -24,8 +23,5 @@ OnErrorExecute /var/vcap/jobs/clamav/bin/database_error.sh
 OnOutdatedExecute /var/vcap/jobs/clamav/bin/database_outdated.sh
 ConnectTimeout 10
 ReceiveTimeout 30
-SubmitDetectionStats false
-DetectionStatsCountry false
-DetectionStatsHostID false
 SafeBrowsing false
 Bytecode true
