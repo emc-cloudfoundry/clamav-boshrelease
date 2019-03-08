@@ -1,3 +1,13 @@
 #!/bin/sh
 
+# Write detection timestamp to prometheus
+tempfile=$(mktemp)
+
+cat <<DETECTION > ${tempfile}
+# HELP clamav_database_updated_detected FreshClam database detection timestamp
+clamav_database_updated_detected {hostname="`hostname`", message="Successfully updated virus definitions with FreshClam"} $(date +%s)
+DETECTION
+
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-freshclam-database-updated-detection.prom
+
 touch /var/vcap/packages/clamav/database/defs_are_current
