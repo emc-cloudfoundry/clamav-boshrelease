@@ -1,5 +1,13 @@
 #!/bin/sh
 
-/var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "Virus definitions are out of date"
+# Write detection timestamp to prometheus
+tempfile=$(mktemp)
+
+cat <<DETECTION > ${tempfile}
+# HELP clamav_database_outdated_detected FreshClam database detection timestamp
+clamav_database_outdated_detected {hostname="`hostname`", error="Virus definitions are out of date with FreshClam"} $(date +%s)
+DETECTION
+
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-freshclam-database-outdated-detection.prom
 
 rm /var/vcap/packages/clamav/database/defs_are_current

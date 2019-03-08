@@ -1,3 +1,11 @@
 #!/bin/sh
 
-/var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "$CLAM_VIRUSEVENT_FILENAME has a virus called $CLAM_VIRUSEVENT_VIRUSNAME"
+# Write detection timestamp to prometheus
+tempfile=$(mktemp)
+
+cat <<DETECTION > ${tempfile}
+# HELP clamav_virus_detected ClamAV virus detection timestamp
+clamav_virus_detected {hostname="`hostname`", filename="${CLAM_VIRUSEVENT_FILENAME}", virusname="${CLAM_VIRUSEVENT_VIRUSNAME}"} $(date +%s)
+DETECTION
+
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-virus-detection.prom

@@ -1,5 +1,13 @@
 #!/bin/sh
 
-/var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "Error updating virus definitions"
+# Write detection timestamp to prometheus
+tempfile=$(mktemp)
+
+cat <<DETECTION > ${tempfile}
+# HELP clamav_database_error_detected FreshClam database detection timestamp
+clamav_database_error_detected {hostname="`hostname`", error="Error updating virus definitions with FreshClam"} $(date +%s)
+DETECTION
+
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-freshclam-database-error-detection.prom
 
 rm /var/vcap/packages/clamav/database/defs_are_current
