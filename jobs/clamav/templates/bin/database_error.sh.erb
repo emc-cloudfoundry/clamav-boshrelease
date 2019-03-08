@@ -5,7 +5,7 @@ tempfile=$(mktemp)
 
 cat <<DETECTION > ${tempfile}
 # HELP clamav_database_error_detected FreshClam database detection timestamp
-clamav_database_error_detected {hostname="`hostname`", error="Error updating virus definitions with FreshClam"} $(date +%s)
+clamav_database_error_detected {hostname="`hostname`", message="Error updating virus definitions with FreshClam"} $(date +%s)
 DETECTION
 
 mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-freshclam-database-error-detection.prom

@@ -5,7 +5,7 @@ tempfile=$(mktemp)
 
 cat <<DETECTION > ${tempfile}
 # HELP clamav_database_outdated_detected FreshClam database detection timestamp
-clamav_database_outdated_detected {hostname="`hostname`", error="Virus definitions are out of date with FreshClam"} $(date +%s)
+clamav_database_outdated_detected {hostname="`hostname`", message="Virus definitions are out of date with FreshClam"} $(date +%s)
 DETECTION
 
 mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-freshclam-database-outdated-detection.prom
